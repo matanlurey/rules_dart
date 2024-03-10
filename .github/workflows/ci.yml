@@ -1,0 +1,56 @@
+name: Continuous Integration
+
+on:
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Every day at 11:09 UTC.
+    - cron: '9 11 * * *'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rules:
+    name: Rules
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: p0deje/setup-bazel@0.8.0
+        with:
+          # Better config for CI.
+          bazelrc: ./.github/workflows/.ci.bazelrc
+          # Avoid downloading Bazel every time.
+          bazelisk-cache: true
+          # Store build cache per workflow.
+          disk-cache: ${{ github.workflow }}
+          # Share repository cache between workflows.
+          repository-cache: true
+      - run: bazel run :buildifier.check
+      - run: bazel test ...
+  examples:
+    name: Examples
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu
+          - macos
+    defaults:
+      run:
+        working-directory: examples
+    steps:
+      - uses: actions/checkout@v4
+      - uses: p0deje/setup-bazel@0.8.0
+        with:
+          # Better config for CI.
+          bazelrc: ./.github/workflows/.ci.bazelrc
+          # Avoid downloading Bazel every time.
+          bazelisk-cache: true
+          # Store build cache per workflow.
+          disk-cache: ${{ github.workflow }}
+          # Share repository cache between workflows.
+          repository-cache: examples/simple/MODULE.bazel
+      - run: bazel test ...

@@ -1,0 +1,11 @@
+load(
+    "@dev_lurey_rules_dart//dart:defs.bzl",
+    "dart_binary",
+)
+
+package(default_visibility = ["//:__subpackages__"])
+
+dart_binary(
+    name = "hello",
+    main = "hello.dart",
+)

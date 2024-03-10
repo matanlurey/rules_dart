@@ -1,0 +1,53 @@
+"Bazel dependencies"
+
+module(
+    name = "dev_lurey_rules_dart",
+    version = "0.0.0",
+    compatibility_level = 1,
+)
+
+# Common library of Starlark rules to ease the development of Bazel rules.
+# https://github.com/bazelbuild/bazel-skylib/tree/1.5.0
+bazel_dep(
+    name = "bazel_skylib",
+    version = "1.5.0",
+)
+
+# Canonical platform definitions for Bazel.
+# https://github.com/bazelbuild/platforms/tree/0.0.8
+bazel_dep(
+    name = "platforms",
+    version = "0.0.8",
+)
+
+# BUILD file generator for Bazel projects.
+# https://github.com/bazelbuild/bazel-gazelle/tree/v0.35.0
+bazel_dep(
+    name = "gazelle",
+    version = "0.35.0",
+    repo_name = "bazel_gazelle",
+    dev_dependency = True,
+)
+
+# Gazelle plugin for Bazel (.bzl) files.
+# https://github.com/bazelbuild/bazel-skylib/tree/1.5.0/gazelle
+bazel_dep(
+    name = "bazel_skylib_gazelle_plugin",
+    version = "1.5.0",
+    dev_dependency = True,
+)
+
+# More common Starlark rules for Bazel.
+# https://github.com/aspect-build/bazel-lib/tree/v2.5.3
+bazel_dep(
+    name = "aspect_bazel_lib",
+    version = "2.5.3",
+)
+
+# Efficient access to "buildifier" and "buildozer" tools for Bazel.
+# https://github.com/keith/buildifier-prebuilt/tree/6.4.0
+bazel_dep(
+    name = "buildifier_prebuilt",
+    version = "6.4.0",
+    dev_dependency = True,
+)
