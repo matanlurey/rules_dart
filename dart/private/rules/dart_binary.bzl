@@ -4,7 +4,11 @@ load(
     "//dart/private:providers.bzl",
     "DartBinaryInfo",
     "DartLibraryInfo",
-    "DartPackageInfo",
+    "DartPackageConfigInfo",
+)
+load(
+    "//dart/private/rules:dart_packages.bzl",
+    "dart_package_config",
 )
 
 ATTRS = {
@@ -32,7 +36,8 @@ Additional dependencies to include in the binary.
     ),
     "packages": attr.label(
         default = None,
-        providers = [DartPackageInfo],
+        allow_single_file = True,
+        providers = [DartPackageConfigInfo],
     ),
     "_binary_sh_tpl": attr.label(
         allow_single_file = True,
@@ -46,10 +51,10 @@ def generate_dart_binary_script(ctx, binary):
     script = ctx.actions.declare_file("{}.sh".format(ctx.label.name))
     args = []
 
-    # Optionally, add --packages argument to the Dart binary.
-    if ctx.attr.packages:
-        packages = ctx.attr.packages[DartPackageInfo]
-        args.append("--packages={}".format(packages.config.files.to_list()[0].path))
+    # Create a default package config if none is provided.
+    packages = ctx.attr.packages
+    if packages:
+        args.append("--packages={}".format(packages.config.short_path))
 
     ctx.actions.expand_template(
         template = ctx.file._binary_sh_tpl,
@@ -73,7 +78,7 @@ def dart_binary_impl(ctx):
 
     runfiles = [executable]
     if ctx.attr.packages:
-        runfiles.extend(ctx.attr.packages[DartPackageInfo].config.files.to_list())
+        runfiles.append(ctx.attr.packages[DartPackageConfigInfo].config)
 
     # Add srcs to runfiles.
     runfiles.extend(ctx.files.srcs)
@@ -84,7 +89,6 @@ def dart_binary_impl(ctx):
     return [
         DefaultInfo(
             executable = script,
-            files = depset([]),
             runfiles = ctx.runfiles(runfiles),
         ),
         DartBinaryInfo(

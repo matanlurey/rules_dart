@@ -15,7 +15,20 @@ DartLibraryInfo = provider(
     },
 )
 
-DartPackageInfo = provider(
+DartPackageRootInfo = provider(
+    """Provides what is referred to as a 'package' root in Dart.
+
+In other words, given a "[package_name]", tools will expect to be able to refer
+to Dart files by "package:[package_name]/path/to/file.dart" and have it resolve
+to the file at "[package_root]/path/to/file.dart".
+""",
+    fields = {
+        "package_name": "The name of the package.",
+        "package_root": "The root of the package.",
+    },
+)
+
+DartPackageConfigInfo = provider(
     "Provider for Dart package configuration",
     fields = {
         "config": "package_config.json file.",
