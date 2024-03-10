@@ -26,9 +26,8 @@ register_toolchains("@dart_toolchains//:all")
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 http_archive(
-    name = "pub_meta",
+    name = "meta",
     urls = ["https://pub.dev/packages/meta/versions/1.12.0.tar.gz"],
     sha256 = "7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136",
-    build_file = "//packages/meta:BUILD.bazel",
-    add_prefix = "packages/meta",
+    build_file = "//packages:meta.BUILD",
 )

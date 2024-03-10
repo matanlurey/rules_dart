@@ -7,6 +7,6 @@ dart_library(
     srcs = glob(["lib/**/*.dart"]),
     visibility = ["//visibility:public"],
     deps = [
-        "//packages/meta",
+        "@meta",
     ],
 )

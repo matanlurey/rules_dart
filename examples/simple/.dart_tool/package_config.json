@@ -9,7 +9,7 @@
     },
     {
       "name": "meta",
-      "rootUri": "../packages/meta",
+      "rootUri": "../bazel-simple/external/_main~_repo_rules~meta",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },

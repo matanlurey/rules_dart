@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 3,
-  "moduleFileHash": "b0e1e099df09362f063123187d532182211ab389974a3c14371520b61096e73b",
+  "moduleFileHash": "27c11e030f3c97d0db6d8f93e94cba3fa505661f60af1d60c8f48163b378b444",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -68,7 +68,7 @@
             "column": 0
           },
           "imports": {
-            "pub_meta": "pub_meta"
+            "meta": "meta"
           },
           "devImports": [],
           "tags": [
@@ -79,9 +79,8 @@
                   "https://pub.dev/packages/meta/versions/1.12.0.tar.gz"
                 ],
                 "sha256": "7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136",
-                "build_file": "//packages/meta:BUILD.bazel",
-                "add_prefix": "packages/meta",
-                "name": "pub_meta"
+                "build_file": "//packages:meta.BUILD",
+                "name": "meta"
               },
               "devDependency": false,
               "location": {
@@ -891,6 +890,28 @@
     }
   },
   "moduleExtensions": {
+    "//:MODULE.bazel%_repo_rules": {
+      "general": {
+        "bzlTransitiveDigest": "nSp+oEsTv5DYy1r8s+aEwKWUHoJDhXelRNB5mFkZmdU=",
+        "accumulatedFileDigests": {},
+        "envVariables": {},
+        "generatedRepoSpecs": {
+          "meta": {
+            "bzlFile": "@@bazel_tools//tools/build_defs/repo:http.bzl",
+            "ruleClassName": "http_archive",
+            "attributes": {
+              "urls": [
+                "https://pub.dev/packages/meta/versions/1.12.0.tar.gz"
+              ],
+              "sha256": "7687075e408b093f36e6bbf6c91878cc0d4cd10f409506f7bc996f68220b9136",
+              "build_file": "@@//packages:meta.BUILD",
+              "name": "_main~_repo_rules~meta"
+            }
+          }
+        },
+        "recordedRepoMappingEntries": []
+      }
+    },
     "@@apple_support~1.5.0//crosstool:setup.bzl%apple_cc_configure_extension": {
       "general": {
         "bzlTransitiveDigest": "pMLFCYaRPkgXPQ8vtuNkMfiHfPmRBy6QJfnid4sWfv0=",
