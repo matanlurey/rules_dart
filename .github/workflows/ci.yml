@@ -35,7 +35,7 @@ jobs:
       - run: bazel test ...
 
   examples_posix_x64:
-    name: Examples
+    name: "${{ matrix.os == 'ubuntu' && 'linux-x64' || 'mac-x64' }}: examples"
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -61,7 +61,7 @@ jobs:
       - run: bazel build ...
 
   examples_macos_arm64:
-    name: Examples
+    name: "macos-arm64: examples"
     runs-on: macos-14-latest
     strategy:
       fail-fast: false
