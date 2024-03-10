@@ -34,8 +34,8 @@ jobs:
       - run: bazel run :buildifier.check
       - run: bazel test ...
 
-  examples_posix_x64:
-    name: "${{ matrix.os == 'ubuntu' && 'linux-x64' || 'mac-x64' }}: examples"
+  examples:
+    name: "${{ matrix.os == 'ubuntu' && 'linux-x64' || matrix.os == 'macos-xlarge' && 'mac-arm64' || 'mac-x64' }}: examples"
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -43,33 +43,10 @@ jobs:
         os:
           - ubuntu # linux-x64
           - macos # mac-x64
+          - macos-xlarge # mac-arm64
     defaults:
       run:
         working-directory: examples/simple
-    steps:
-      - uses: actions/checkout@v4
-      - uses: p0deje/setup-bazel@0.8.0
-        with:
-          # Better config for CI.
-          bazelrc: ./.github/workflows/.ci.bazelrc
-          # Avoid downloading Bazel every time.
-          bazelisk-cache: true
-          # Store build cache per workflow.
-          disk-cache: ${{ github.workflow }}
-          # Share repository cache between workflows.
-          repository-cache: examples/simple/MODULE.bazel
-      - run: bazel build ...
-
-  examples_macos_arm64:
-    name: "macos-arm64: examples"
-    runs-on: macos-14-latest
-    strategy:
-      fail-fast: false
-    defaults:
-      run:
-        working-directory: examples/simple
-    # Only run this on cron.
-    if: github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@v4
       - uses: p0deje/setup-bazel@0.8.0
