@@ -6,6 +6,12 @@ set -e
 # Path to your binary.
 binary_path="$1"
 
+# Check if the path is valid.
+if [[ ! -f "$binary_path" ]]; then
+  echo "Binary not found: $binary_path"
+  exit 1
+fi
+
 # Run the binary and capture the output
 output=$($binary_path)
 
