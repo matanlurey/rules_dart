@@ -40,7 +40,7 @@ jobs:
           - macos
     defaults:
       run:
-        working-directory: examples
+        working-directory: examples/simple
     steps:
       - uses: actions/checkout@v4
       - uses: p0deje/setup-bazel@0.8.0
