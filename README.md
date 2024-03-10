@@ -40,8 +40,6 @@ echo "7.2.0" > .bazelversion
 bazel --version
 ```
 
-See also [`docs/rules.md`](./docs/rules.md) [`examples/simple`](./examples/simple/).
-
 </details>
 
 Add the following to your `MODULE.bazel` file:
@@ -67,6 +65,8 @@ dart.toolchain(
     version = "3.3.1",
 )
 ```
+
+See also [`docs/rules.md`](./docs/rules.md) and [`examples/simple`](./examples/simple/).
 
 ## Contributing
 

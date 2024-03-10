@@ -2,14 +2,20 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "simple",
-      "rootUri": "../",
+      "name": "foo",
+      "rootUri": "../packages/foo",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },
     {
-      "name": "pkg",
-      "rootUri": "../pkg",
+      "name": "meta",
+      "rootUri": "../bazel-simple/external/_main~_repo_rules~meta",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "simple",
+      "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     }
