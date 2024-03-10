@@ -10,6 +10,7 @@ DartBinaryInfo = provider(
 DartLibraryInfo = provider(
     "Provider for Dart libraries",
     fields = {
+        "transitive_deps": "Transitive Dart dependencies.",
         "transitive_srcs": "Transitive Dart sources.",
     },
 )
@@ -33,6 +34,19 @@ def get_transitive_srcs(srcs, deps):
     return depset(
         srcs,
         transitive = [dep[DartLibraryInfo].transitive_srcs for dep in deps],
+    )
+
+def get_transitive_deps(deps):
+    """Obtain the dependencies for a target and its transitive dependencies.
+
+    Args:
+        deps: a list of targets that are direct dependencies
+    Returns:
+        a collection of the transitive dependencies
+    """
+    return depset(
+        deps,
+        transitive = [dep[DartLibraryInfo].transitive_deps for dep in deps],
     )
 
 def get_transitive_runfiles(runfiles, srcs, data, deps):

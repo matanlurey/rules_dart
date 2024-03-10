@@ -1,0 +1,12 @@
+"""Creates our own pkg/foo."""
+
+load("@dev_lurey_rules_dart//dart:defs.bzl", "dart_library")
+
+dart_library(
+    name = "foo",
+    srcs = glob(["lib/**/*.dart"]),
+    visibility = ["//visibility:public"],
+    deps = [
+        "//packages/meta",
+    ],
+)
