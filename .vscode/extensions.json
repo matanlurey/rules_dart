@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "bazelbuild.vscode-bazel",
-    "bierner.markdown-preview-github-styles"
+    "bierner.markdown-preview-github-styles",
+    "bierner.markdown-footnotes"
   ]
 }

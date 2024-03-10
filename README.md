@@ -7,7 +7,15 @@ This is an unofficial set of rules for using Dart with Bazel.
 Support is limited to:
 
 - Bazel 7 using `WORKSPACE` and `Bzlmod`;
-- ARM64 Macs, Intel Macs, or Linux x86_64.
+- [ARM64 Macs][][^slow], [Intel Macs][], or [Linux x64][].
+
+[arm64 macs]: https://github.com/search?q=repo%3Amatanlurey%2Frules_dart+%22macos-arm64%22&type=code
+[intel macs]: https://github.com/search?q=repo%3Amatanlurey%2Frules_dart+%22macos-x64%22&type=code
+[linux x64]: https://github.com/search?q=repo%3Amatanlurey%2Frules_dart%20%22linux-x64%22&type=code
+
+[^slow]: 
+    The GitHub action runners are extremely slow to queue on ARM64 Macs, and as
+    a result are only run once a day. 
 
 In addition, only Dart `3.3.1` is tested on CI.
 
@@ -29,6 +37,24 @@ dart.toolchain(
 ## Contributing
 
 Follow the official style guide at <https://bazel.build/rules/deploying>.
+
+To automatically generate (some) parts of `BUILD.bazel` files:
+
+```sh
+bazel run //:gazelle update
+```
+
+To format the rules:
+
+```sh
+bazel run //:buildifier.fix
+```
+
+To run the tests:
+
+```sh
+bazel test //...
+```
 
 ## See also
 
