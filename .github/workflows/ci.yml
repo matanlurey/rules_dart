@@ -68,8 +68,8 @@ jobs:
     defaults:
       run:
         working-directory: examples/simple
-    # Only run this on post-merge. It's too slow to run on every push.
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Only run this on cron.
+    if: github.event_name == 'schedule'
     steps:
       - uses: actions/checkout@v4
       - uses: p0deje/setup-bazel@0.8.0
