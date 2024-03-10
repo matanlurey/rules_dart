@@ -2,7 +2,8 @@
 
 load(
     "//dart/private:providers.bzl",
-    "DartFilesInfo",
+    "DartBinaryInfo",
+    "DartLibraryInfo",
     "DartPackageInfo",
 )
 
@@ -21,6 +22,13 @@ Dart script to run.
         doc = """
 Source files to include in the binary.
         """,
+    ),
+    "deps": attr.label_list(
+        cfg = "exec",
+        doc = """
+Additional dependencies to include in the binary.
+        """,
+        providers = [DartLibraryInfo],
     ),
     "packages": attr.label(
         default = None,
@@ -59,8 +67,8 @@ def generate_dart_binary_script(ctx, binary):
 # buildifier: disable=function-docstring
 def dart_binary_impl(ctx):
     executable = ctx.executable.main
-    if ctx.attr.main and DartFilesInfo in ctx.attr.main and ctx.attr.main[DartFilesInfo].binary:
-        executable = ctx.attr.main[DartFilesInfo].binary
+    if ctx.attr.main and DartBinaryInfo in ctx.attr.main and ctx.attr.main[DartBinaryInfo].binary:
+        executable = ctx.attr.main[DartBinaryInfo].binary
     script = generate_dart_binary_script(ctx, executable)
 
     runfiles = [executable]
@@ -70,13 +78,16 @@ def dart_binary_impl(ctx):
     # Add srcs to runfiles.
     runfiles.extend(ctx.files.srcs)
 
+    # Adds deps to runfiles.
+    runfiles.extend(ctx.files.deps)
+
     return [
         DefaultInfo(
             executable = script,
             files = depset([]),
             runfiles = ctx.runfiles(runfiles),
         ),
-        DartFilesInfo(
+        DartBinaryInfo(
             binary = executable,
         ),
     ]

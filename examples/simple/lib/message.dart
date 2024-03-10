@@ -1,1 +1,1 @@
-String get message => 'Hello, World!';
+String message(String location) => 'Hello, $location!';
