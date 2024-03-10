@@ -32,10 +32,10 @@ jobs:
           # Share repository cache between workflows.
           repository-cache: true
       - run: bazel run :buildifier.check
-      - run: bazel test ...
+      - run: bazel --bazelrc=.github/workflows/.ci.bazelrc test ...
 
   examples:
-    name: "${{ matrix.os == 'ubuntu' && 'linux-x64' || matrix.os == 'macos-xlarge' && 'mac-arm64' || 'mac-x64' }}: examples"
+    name: "${{ matrix.os == 'ubuntu' && 'linux-x64' || 'mac-x64' }}: examples"
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -43,7 +43,6 @@ jobs:
         os:
           - ubuntu # linux-x64
           - macos # mac-x64
-          - macos-xlarge # mac-arm64
     defaults:
       run:
         working-directory: examples/simple
@@ -59,4 +58,4 @@ jobs:
           disk-cache: ${{ github.workflow }}
           # Share repository cache between workflows.
           repository-cache: examples/simple/MODULE.bazel
-      - run: bazel test ...
+      - run: bazel --bazelrc=.github/workflows/.ci.bazelrc test ...
