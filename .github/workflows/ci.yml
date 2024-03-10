@@ -1,8 +1,12 @@
 name: Continuous Integration
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
   schedule:
     # Every day at 11:09 UTC.
     - cron: '9 11 * * *'
