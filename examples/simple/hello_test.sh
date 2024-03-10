@@ -5,11 +5,14 @@ set -e
 
 # Path to your binary.
 binary_path="$1"
+shift
 
 # Check if the path is valid.
 if [[ ! -f "$binary_path" ]]; then
   echo "Binary not found: $binary_path"
   exit 1
+else
+  echo "Using binary at $binary_path"
 fi
 
 # Run the binary and capture the output
