@@ -5,4 +5,6 @@ set -e
 
 # Print all arguments for debugging.
 echo "Arguments: $@"
-exit 1
+
+# Run the binary.
+exec $1
