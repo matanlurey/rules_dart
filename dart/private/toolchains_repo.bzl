@@ -32,6 +32,12 @@ PLATFORMS = {
             "@platforms//cpu:arm64",
         ],
     ),
+    "macos-x64": struct(
+        compatible_with = [
+            "@platforms//os:macos",
+            "@platforms//cpu:x86_64",
+        ],
+    ),
 }
 
 def _toolchains_repo_impl(ctx):

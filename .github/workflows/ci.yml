@@ -41,6 +41,7 @@ jobs:
       matrix:
         os:
           - ubuntu
+          - macos
           - macos-14
     defaults:
       run:

@@ -11,5 +11,6 @@ TOOL_VERSIONS = {
     "3.3.1": {
         "linux-x64": "sha384-U9XMbL1psUYMRAAEGuXDfZxtUWTyo+fdeXEJQHDudYfrsHSe0/nQV4UY69TZMIFi",
         "macos-arm64": "sha384-m1xdNg5b/9HUxBGRmsHZ4AhoXF2dvfwNNMlGrb99KUvPJAqCe3dqJM/Q4mIROoPO",
+        "macos-x64": "sha384-dU/3SqLPsexypM7fyzeqv2HcqTSjX7ULYuf11jSyZP1FKg4ug1uRdFaBVwNBL+ya",
     },
 }
