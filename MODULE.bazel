@@ -25,8 +25,8 @@ bazel_dep(
 bazel_dep(
     name = "gazelle",
     version = "0.35.0",
-    repo_name = "bazel_gazelle",
     dev_dependency = True,
+    repo_name = "bazel_gazelle",
 )
 
 # Gazelle plugin for Bazel (.bzl) files.
