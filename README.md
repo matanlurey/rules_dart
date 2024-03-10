@@ -56,6 +56,10 @@ To run the tests:
 bazel test //...
 ```
 
+### Adding a new version
+
+See [`versions.bzl`](./dart/private/versions.bzl).
+
 ## See also
 
 - <https://github.com/bazel-contrib/rules-template>

@@ -1,0 +1,20 @@
+{
+  "configVersion": 2,
+  "packages": [
+    {
+      "name": "args",
+      "rootUri": "file:///Users/matan/.pub-cache/hosted/pub.dev/args-2.4.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "pub_deps",
+      "rootUri": "../",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    }
+  ],
+  "generated": "2024-03-10T06:03:47.766286Z",
+  "generator": "pub",
+  "generatorVersion": "3.3.0"
+}

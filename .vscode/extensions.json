@@ -2,6 +2,7 @@
   "recommendations": [
     "bazelbuild.vscode-bazel",
     "bierner.markdown-preview-github-styles",
-    "bierner.markdown-footnotes"
+    "bierner.markdown-footnotes",
+    "dart-code.dart-code"
   ]
 }

@@ -1,0 +1,10 @@
+load(
+    "@dev_lurey_rules_dart//dart:defs.bzl",
+    "compute_pub_deps",
+)
+
+package(default_visibility = ["//:__subpackages__"])
+
+compute_pub_deps(
+    name = "pubspec",
+)

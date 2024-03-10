@@ -16,7 +16,7 @@ Dart script to run.
     ),
     "_binary_sh_tpl": attr.label(
         allow_single_file = True,
-        default = "@dev_lurey_rules_dart//dart/private/binary:binary.sh.tpl",
+        default = "@dev_lurey_rules_dart//dart/private/rules/templates:binary.sh.tpl",
     ),
 }
 

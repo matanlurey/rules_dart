@@ -1411,10 +1411,28 @@
     },
     "@@dev_lurey_rules_dart~override//dart:extensions.bzl%dart": {
       "general": {
-        "bzlTransitiveDigest": "e4JtTX9gwsKSsWBePEuIdJW48RaO9794BhJOlwfOiWg=",
+        "bzlTransitiveDigest": "eCM04nhPeuIxdDN1G0D1XS4u0LW9gRAFGoJpiRpeY2M=",
         "accumulatedFileDigests": {},
         "envVariables": {},
         "generatedRepoSpecs": {
+          "dart_macos-x64": {
+            "bzlFile": "@@dev_lurey_rules_dart~override//dart:repositories.bzl",
+            "ruleClassName": "dart_repositories",
+            "attributes": {
+              "name": "dev_lurey_rules_dart~override~dart~dart_macos-x64",
+              "platform": "macos-x64",
+              "version": "3.3.1"
+            }
+          },
+          "dart_linux-x64": {
+            "bzlFile": "@@dev_lurey_rules_dart~override//dart:repositories.bzl",
+            "ruleClassName": "dart_repositories",
+            "attributes": {
+              "name": "dev_lurey_rules_dart~override~dart~dart_linux-x64",
+              "platform": "linux-x64",
+              "version": "3.3.1"
+            }
+          },
           "dart_toolchains": {
             "bzlFile": "@@dev_lurey_rules_dart~override//dart/private:toolchains_repo.bzl",
             "ruleClassName": "toolchains_repo",
