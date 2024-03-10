@@ -2,6 +2,8 @@
 
 This is an unofficial set of rules for using Dart with Bazel.
 
+[![CI](https://github.com/matanlurey/rules_dart/actions/workflows/ci.yml/badge.svg)](https://github.com/matanlurey/rules_dart/actions/workflows/ci.yml)
+
 Support is limited to:
 
 - Bazel 7 using `WORKSPACE` and `Bzlmod`;
