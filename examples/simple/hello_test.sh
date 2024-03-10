@@ -13,7 +13,7 @@ output=$($binary_path)
 expected_output="Hello, world!"
 
 # Simple assertion
-if [[ "$output" == "$expected_output" ]]; then
+if [[ "$output" = "$expected_output" ]]; then
   echo "Test PASSED"
   exit 0
 else
