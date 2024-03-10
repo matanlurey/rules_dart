@@ -2,11 +2,12 @@
 
 This is an unofficial set of rules for using Dart with Bazel.
 
-Support is limited to a single configuration:
+Support is limited to:
 
 - Bazel 7 using `WORKSPACE` and `Bzlmod`;
-- Dart 3.3.1;
-- ARM64 Macs.
+- ARM64 Macs, Intel Macs, or Linux x86_64.
+
+In addition, only Dart `3.3.1` is tested on CI.
 
 ## Usage
 
