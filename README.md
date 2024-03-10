@@ -24,9 +24,43 @@ In addition, only Dart `3.3.1` is tested on CI.
 [`Bzlmod`](https://docs.bazel.build/versions/main/bzlmod.html) is required to
 use these rules.
 
+<details>
+
+<summary>New to Bazel?</summary>
+
+<p>
+
+Install `bazelisk`: <https://github.com/bazelbuild/bazelisk>. To get started:
+
+```sh
+touch WORKSPACE.bazel
+touch BUILD.bazel
+echo "7.2.0" > .bazelversion
+
+bazel --version
+```
+
+See also [`examples/simple`](./examples/simple/).
+
+</details>
+
 Add the following to your `MODULE.bazel` file:
 
 ```starlark
+bazel_dep(
+    name = "dev_lurey_rules_dart",
+    version = "0.0.0",
+)
+
+# This package is not yet published, so you must use an override.
+# See also: https://bazel.build/rules/lib/globals/module.
+git_override(
+    module_name = "dev_lurey_rules_dart",
+    remote = "https://github.com/matanlurey/rules_dart",
+    # TODO: Pin to a specific commit.
+    # commit = '...',
+)
+
 dart = use_extension("@dev_lurey_rules_dart//dart:extensions.bzl", "dart")
 dart.toolchain(
     name = "dart",
