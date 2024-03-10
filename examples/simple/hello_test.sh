@@ -12,6 +12,8 @@ output=$(exec $1)
 # Check the output
 echo "Output: $output"
 if [ "$output" != "Hello, world!" ]; then
-  echo "Unexpected output: $output"
+  echo "TEST FAIL: Unexpected output: $output"
   exit 1
+echo 
+  echo "TEST PASS"
 fi
