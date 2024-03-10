@@ -7,7 +7,15 @@ This is an unofficial set of rules for using Dart with Bazel.
 Support is limited to:
 
 - Bazel 7 using `WORKSPACE` and `Bzlmod`;
-- ARM64 Macs, Intel Macs, or Linux x86_64.
+- [ARM64 Macs][][^slow], [Intel Macs][], or [Linux x64][].
+
+[arm64 macs]: https://github.com/search?q=repo%3Amatanlurey%2Frules_dart+%22macos-arm64%22&type=code
+[intel macs]: https://github.com/search?q=repo%3Amatanlurey%2Frules_dart+%22macos-x64%22&type=code
+[linux x64]: https://github.com/search?q=repo%3Amatanlurey%2Frules_dart%20%22linux-x64%22&type=code
+
+[^slow]: 
+    The GitHub action runners are extremely slow to queue on ARM64 Macs, and as
+    a result are only run once a day. 
 
 In addition, only Dart `3.3.1` is tested on CI.
 
@@ -16,9 +24,43 @@ In addition, only Dart `3.3.1` is tested on CI.
 [`Bzlmod`](https://docs.bazel.build/versions/main/bzlmod.html) is required to
 use these rules.
 
+<details>
+
+<summary>New to Bazel?</summary>
+
+<p>
+
+Install `bazelisk`: <https://github.com/bazelbuild/bazelisk>. To get started:
+
+```sh
+touch WORKSPACE.bazel
+touch BUILD.bazel
+echo "7.2.0" > .bazelversion
+
+bazel --version
+```
+
+See also [`examples/simple`](./examples/simple/).
+
+</details>
+
 Add the following to your `MODULE.bazel` file:
 
 ```starlark
+bazel_dep(
+    name = "dev_lurey_rules_dart",
+    version = "0.0.0",
+)
+
+# This package is not yet published, so you must use an override.
+# See also: https://bazel.build/rules/lib/globals/module.
+git_override(
+    module_name = "dev_lurey_rules_dart",
+    remote = "https://github.com/matanlurey/rules_dart",
+    # TODO: Pin to a specific commit.
+    # commit = '...',
+)
+
 dart = use_extension("@dev_lurey_rules_dart//dart:extensions.bzl", "dart")
 dart.toolchain(
     name = "dart",
@@ -29,6 +71,28 @@ dart.toolchain(
 ## Contributing
 
 Follow the official style guide at <https://bazel.build/rules/deploying>.
+
+To automatically generate (some) parts of `BUILD.bazel` files:
+
+```sh
+bazel run //:gazelle update
+```
+
+To format the rules:
+
+```sh
+bazel run //:buildifier.fix
+```
+
+To run the tests:
+
+```sh
+bazel test //...
+```
+
+### Adding a new version
+
+See [`versions.bzl`](./dart/private/versions.bzl).
 
 ## See also
 

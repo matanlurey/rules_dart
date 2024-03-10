@@ -1,3 +1,5 @@
+import 'package:simple/message.dart';
+
 void main() {
-  print('Hello, World!');
+  print(message);
 }
