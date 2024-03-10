@@ -39,11 +39,28 @@ Additional dependencies to include in the binary.
         allow_single_file = True,
         default = "@dev_lurey_rules_dart//dart/private/rules/templates:binary.sh.tpl",
     ),
+    "_runfiles_library": attr.label(
+        doc = "The runfiles library to use.",
+        allow_single_file = True,
+        default = "@bazel_tools//tools/bash/runfiles",
+    ),
 }
 
+# https://github.com/aspect-build/bazel-lib/blob/ddac9c46c3bff4cf8d0118a164c75390dbec2da9/lib/paths.bzl
+_BASH_RLOCATION_FUNCTION = r"""
+# --- begin runfiles.bash initialization v2 ---
+set -uo pipefail; f=bazel_tools/tools/bash/runfiles/runfiles.bash
+source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null || \
+source "$(grep -sm1 "^$f " "${RUNFILES_MANIFEST_FILE:-/dev/null}" | cut -f2- -d' ')" 2>/dev/null || \
+source "$0.runfiles/$f" 2>/dev/null || \
+source "$(grep -sm1 "^$f " "$0.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null || \
+source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null || \
+{ echo>&2 "ERROR: cannot find $f"; exit 1; }; f=; set -e
+# --- end runfiles.bash initialization v2 ---
+"""
+
 # buildifier: disable=function-docstring
-def generate_dart_binary_script(ctx, binary):
-    toolchain = ctx.toolchains["@dev_lurey_rules_dart//dart:toolchain_type"]
+def generate_dart_binary_script(ctx, dart_executable, dart_main):
     script = ctx.actions.declare_file("{}.sh".format(ctx.label.name))
     args = []
 
@@ -55,14 +72,18 @@ def generate_dart_binary_script(ctx, binary):
         packages = ctx.attr.packages[DartPackageConfigInfo]
         args.append("--packages={}".format(packages.config.short_path))
 
+    dart_binary_name = dart_executable.files.to_list()[0].path
+    dart_main_full_path = "%s/%s" % (ctx.workspace_name, dart_main.path)
+
     ctx.actions.expand_template(
         template = ctx.file._binary_sh_tpl,
         output = script,
         is_executable = True,
         substitutions = {
             "{dart_binary_args}": " ".join(args),
-            "{dart_binary_name}": toolchain.dart.dart_bin.files.to_list()[0].basename,
-            "{binary}": binary.path,
+            "{dart_binary_name}": dart_binary_name,
+            "{entrypoint}": dart_main_full_path,
+            "{rlocation_function}": _BASH_RLOCATION_FUNCTION,
         },
     )
 
@@ -70,10 +91,19 @@ def generate_dart_binary_script(ctx, binary):
 
 # buildifier: disable=function-docstring
 def dart_binary_impl(ctx):
+    # Find the dart executable.
+    toolchain = ctx.toolchains["@dev_lurey_rules_dart//dart:toolchain_type"]
+    dart_bin = toolchain.dart.dart_bin
+
     executable = ctx.executable.main
     if ctx.attr.main and DartBinaryInfo in ctx.attr.main and ctx.attr.main[DartBinaryInfo].binary:
         executable = ctx.attr.main[DartBinaryInfo].binary
-    script = generate_dart_binary_script(ctx, executable)
+
+    script = generate_dart_binary_script(
+        ctx,
+        dart_executable = dart_bin,
+        dart_main = executable,
+    )
 
     runfiles = [executable]
     if ctx.attr.packages:
@@ -84,6 +114,12 @@ def dart_binary_impl(ctx):
 
     # Adds deps to runfiles.
     runfiles.extend(ctx.files.deps)
+
+    # Add runfiles support library to runfiles.
+    runfiles.append(ctx.file._runfiles_library)
+
+    # Add the toolchain to runfiles.
+    runfiles.extend(dart_bin.files.to_list())
 
     return [
         DefaultInfo(
