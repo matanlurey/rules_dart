@@ -40,7 +40,7 @@ echo "7.2.0" > .bazelversion
 bazel --version
 ```
 
-See also [`examples/simple`](./examples/simple/).
+See also [`docs/rules.md`](./docs/rules.md) [`examples/simple`](./examples/simple/).
 
 </details>
 
