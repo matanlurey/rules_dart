@@ -4,7 +4,7 @@
 set -e
 
 # Path to your binary.
-binary_path="./hello.sh"
+binary_path="$1"
 
 # Run the binary and capture the output
 output=$($binary_path)
@@ -13,7 +13,7 @@ output=$($binary_path)
 expected_output="Hello, world!"
 
 # Simple assertion
-if [[ "$output" = "$expected_output" ]]; then
+if [[ "$output" == "$expected_output" ]]; then
   echo "Test PASSED"
   exit 0
 else
