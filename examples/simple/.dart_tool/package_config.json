@@ -6,6 +6,12 @@
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "pkg",
+      "rootUri": "../pkg",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     }
   ],
   "generator": "manual"

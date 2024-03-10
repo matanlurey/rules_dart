@@ -1,0 +1,12 @@
+load(
+    "@dev_lurey_rules_dart//dart:defs.bzl",
+    "dart_library",
+)
+
+dart_library(
+    name = "pkg",
+    srcs = ["lib/world.dart"],
+    visibility = [
+        "//:__pkg__",
+    ],
+)

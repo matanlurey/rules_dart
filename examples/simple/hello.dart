@@ -1,5 +1,6 @@
+import 'package:pkg/world.dart';
 import 'package:simple/message.dart';
 
 void main() {
-  print(message);
+  print(message(world));
 }

@@ -13,6 +13,9 @@ dart_binary(
     ],
     main = "hello.dart",
     packages = ":packages",
+    deps = [
+        "//pkg",
+    ],
 )
 
 dart_packages(

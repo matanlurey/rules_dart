@@ -18,7 +18,25 @@ dart_binary(
 * `name`: The name of the target (required).
 * `main`: The entrypoint Dart file (required).
 * `srcs`: Additional source files to include in the binary.
+* `deps`: Additional `dart_library` dependencies to import in the binary.
 * `packages`: [`dart_packages`](#dart_packages) target to resolve package URIs.
+
+## `dart_library`
+
+Creates a new Dart library target.
+
+```starlark
+load("@dev_lurey_rules_dart//dart:defs.bzl", "dart_library")
+
+dart_library(
+    name = "example",
+    srcs = ["example.dart"],
+)
+```
+
+* `name`: The name of the target (required).
+* `srcs`: The source files to include in the library (required).
+* `deps`: Additional `dart_library` dependencies to import in the library.
 
 ## `dart_packages`
 
