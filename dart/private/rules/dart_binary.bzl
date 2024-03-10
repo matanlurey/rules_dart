@@ -6,10 +6,6 @@ load(
     "DartLibraryInfo",
     "DartPackageConfigInfo",
 )
-load(
-    "//dart/private/rules:dart_packages.bzl",
-    "dart_package_config",
-)
 
 ATTRS = {
     "main": attr.label(
@@ -53,7 +49,10 @@ def generate_dart_binary_script(ctx, binary):
 
     # Create a default package config if none is provided.
     packages = ctx.attr.packages
-    if packages:
+
+    # Optionally, add --packages argument to the Dart binary.
+    if ctx.attr.packages:
+        packages = ctx.attr.packages[DartPackageConfigInfo]
         args.append("--packages={}".format(packages.config.short_path))
 
     ctx.actions.expand_template(

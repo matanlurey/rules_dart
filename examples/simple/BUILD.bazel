@@ -1,6 +1,7 @@
 load(
     "@dev_lurey_rules_dart//dart:defs.bzl",
     "dart_binary",
+    "dart_package_config",
 )
 
 package(default_visibility = ["//:__subpackages__"])
@@ -8,6 +9,15 @@ package(default_visibility = ["//:__subpackages__"])
 dart_binary(
     name = "hello",
     main = "hello.dart",
+    packages = ":package_config",
+    deps = [
+        "//packages/foo",
+    ],
+)
+
+# TODO: Make this implicit in dart_binary.
+dart_package_config(
+    name = "package_config",
     deps = [
         "//packages/foo",
     ],
