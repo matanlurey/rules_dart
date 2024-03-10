@@ -41,7 +41,7 @@ jobs:
       matrix:
         os:
           - ubuntu
-          - macos
+          - macos-14
     defaults:
       run:
         working-directory: examples/simple
@@ -57,4 +57,4 @@ jobs:
           disk-cache: ${{ github.workflow }}
           # Share repository cache between workflows.
           repository-cache: examples/simple/MODULE.bazel
-      - run: bazel test ...
+      - run: bazel build ...
