@@ -14,15 +14,23 @@ load(":repositories.bzl", "dart_register_toolchains")
 
 _DEFAULT_NAME = "dart"
 
-dart_toolchain = tag_class(attrs = {
-    "name": attr.string(doc = """\
+_toolchain = tag_class(
+    attrs = {
+        "name": attr.string(
+            doc = """\
 Base name for generated repositories, allowing more than one dart toolchain to be registered.
 Overriding the default is only permitted in the root module.
-""", default = _DEFAULT_NAME),
-    "version": attr.string(doc = "Explicit version of dart.", mandatory = True),
-})
+""",
+            default = _DEFAULT_NAME,
+        ),
+        "version": attr.string(
+            doc = "Explicit version of dart.",
+            mandatory = True,
+        ),
+    },
+)
 
-def _toolchain_extension(ctx):
+def _dart_impl(ctx):
     registrations = {}
     for mod in ctx.modules:
         for toolchain in mod.tags.toolchain:
@@ -50,8 +58,8 @@ def _toolchain_extension(ctx):
         )
 
 dart = module_extension(
-    implementation = _toolchain_extension,
+    implementation = _dart_impl,
     tag_classes = {
-        "toolchain": dart_toolchain,
+        "toolchain": _toolchain,
     },
 )

@@ -6,3 +6,17 @@ bzl_library(
     visibility = ["//dart:__subpackages__"],
     deps = ["//dart/private:providers"],
 )
+
+bzl_library(
+    name = "dart_library",
+    srcs = ["dart_library.bzl"],
+    visibility = ["//dart:__subpackages__"],
+    deps = ["//dart/private:providers"],
+)
+
+bzl_library(
+    name = "dart_packages",
+    srcs = ["dart_packages.bzl"],
+    visibility = ["//dart:__subpackages__"],
+    deps = ["//dart/private:providers"],
+)
