@@ -2,7 +2,7 @@
 
 module(
     name = "dev_lurey_rules_dart",
-    version = "0.0.0",
+    version = "0.1.0-dev",
     compatibility_level = 1,
 )
 

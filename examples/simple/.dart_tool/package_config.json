@@ -9,7 +9,7 @@
     },
     {
       "name": "meta",
-      "rootUri": "../bazel-simple/external/_main~_repo_rules~meta",
+      "rootUri": "../bazel-simple/external/dev_lurey_rules_dart~override~pub~meta",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     },

@@ -3,6 +3,7 @@
     "bazelbuild.vscode-bazel",
     "bierner.markdown-preview-github-styles",
     "bierner.markdown-footnotes",
-    "dart-code.dart-code"
+    "dart-code.dart-code",
+    "esbenp.prettier-vscode"
   ]
 }
