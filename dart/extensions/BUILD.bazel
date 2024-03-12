@@ -4,4 +4,5 @@ bzl_library(
     name = "pub",
     srcs = ["pub.bzl"],
     visibility = ["//visibility:public"],
+    deps = ["@bazel_tools//tools/build_defs/repo:http.bzl"],
 )

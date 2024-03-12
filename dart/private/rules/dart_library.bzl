@@ -42,8 +42,8 @@ def _dart_library_impl(ctx):
             transitive_srcs = depset(transitive_srcs),
         ),
         DartPackageRootInfo(
-            package_name = ctx.label.name,
-            package_root = package_root,
+            name = ctx.label.name,
+            root = package_root,
         ),
     ]
 

@@ -1,0 +1,19 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
+bzl_library(
+    name = "DartPackageConfigInfo",
+    srcs = ["DartPackageConfigInfo.bzl"],
+    visibility = ["//dart:__subpackages__"],
+)
+
+bzl_library(
+    name = "DartPackageResolutionInfo",
+    srcs = ["DartPackageResolutionInfo.bzl"],
+    visibility = ["//dart:__subpackages__"],
+)
+
+bzl_library(
+    name = "DartPackageRootInfo",
+    srcs = ["DartPackageRootInfo.bzl"],
+    visibility = ["//dart:__subpackages__"],
+)
