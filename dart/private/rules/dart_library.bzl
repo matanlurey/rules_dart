@@ -33,8 +33,18 @@ def _dart_library_impl(ctx):
     runfiles = ctx.runfiles(transitive_srcs)
     runfiles = get_transitive_runfiles(runfiles, srcs = ctx.attr.srcs, data = [], deps = ctx.attr.deps)
 
-    package_root = ctx.label.package or ctx.label.workspace_root
-    print(ctx.build_file_path)
+    # TODO: This is a not a good way to determine the package name.
+    package_name = ""
+    if ctx.label.package != "":
+        package_name = _path_to_package_name(ctx.label.package)
+    else:
+        package_name = ctx.label.name
+
+    package_root = ""
+    if ctx.label.workspace_root != "":
+        package_root = ctx.label.workspace_root + ctx.label.package
+    else:
+        package_root = ctx.label.package
 
     providers = [
         DefaultInfo(
@@ -46,7 +56,7 @@ def _dart_library_impl(ctx):
             transitive_srcs = depset(transitive_srcs),
         ),
         DartPackageRootInfo(
-            name = _path_to_package_name(ctx.label.package),
+            name = package_name,
             root = package_root,
         ),
     ]

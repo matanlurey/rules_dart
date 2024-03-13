@@ -63,7 +63,7 @@ source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/
 # --- end runfiles.bash initialization v2 ---
 """
 
-def generate_dart_binary_script(ctx, dart_executable, dart_main):
+def _generate_dart_binary_script(ctx, dart_executable, dart_main):
     script = ctx.actions.declare_file("{}.sh".format(ctx.label.name))
     args = []
 
@@ -101,7 +101,7 @@ def _impl(ctx):
     if ctx.attr.main and DartBinaryInfo in ctx.attr.main and ctx.attr.main[DartBinaryInfo].binary:
         executable = ctx.attr.main[DartBinaryInfo].binary
 
-    script = generate_dart_binary_script(
+    script = _generate_dart_binary_script(
         ctx,
         dart_executable = dart_bin,
         dart_main = executable,
