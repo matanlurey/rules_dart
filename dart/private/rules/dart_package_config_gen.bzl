@@ -106,7 +106,7 @@ def _impl(ctx):
         packages.append(
             {
                 "name": pkg_root.name,
-                "rooUri": pkg_root.root,
+                "rootUri": pkg_root.root,
                 "packageUri": "lib/",
             },
         )

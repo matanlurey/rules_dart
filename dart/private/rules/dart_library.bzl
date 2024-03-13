@@ -20,6 +20,9 @@ ATTRS = {
     ),
 }
 
+def _path_to_package_name(path):
+    return path.replace("/", ".")
+
 def _dart_library_impl(ctx):
     # Fail on empty srcs.
     if not ctx.files.srcs:
@@ -31,6 +34,7 @@ def _dart_library_impl(ctx):
     runfiles = get_transitive_runfiles(runfiles, srcs = ctx.attr.srcs, data = [], deps = ctx.attr.deps)
 
     package_root = ctx.label.package or ctx.label.workspace_root
+    print(ctx.build_file_path)
 
     providers = [
         DefaultInfo(
@@ -42,7 +46,7 @@ def _dart_library_impl(ctx):
             transitive_srcs = depset(transitive_srcs),
         ),
         DartPackageRootInfo(
-            name = ctx.label.name,
+            name = _path_to_package_name(ctx.label.package),
             root = package_root,
         ),
     ]
