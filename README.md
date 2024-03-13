@@ -21,15 +21,7 @@ In addition, only Dart `3.3.1` is tested on CI.
 [`Bzlmod`](https://docs.bazel.build/versions/main/bzlmod.html) is required to
 use these rules.
 
-<details>
-
-<summary>
-
 ### New to Bazel?
-
-</summary>
-
-<p>
 
 Install `bazelisk`: <https://github.com/bazelbuild/bazelisk>. To get started:
 
@@ -42,8 +34,6 @@ bazel --version
 ```
 
 You'll also want to become failiar with the [Bazel documentation](https://bazel.build/), and/or check out our [examples](./examples) for a quick start, as the rest of the documentation assumes you have a basic understanding of Bazel.
-
-</details>
 
 ### Add Dependency
 
