@@ -1,6 +1,6 @@
 {
   "lockFileVersion": 3,
-  "moduleFileHash": "d871a19a3ec1b989770cd516099a330e71f74d1c8931973a62049e655539ea0c",
+  "moduleFileHash": "a6e1892ce632e2033eef40374c1ea17b4278aeaa13311615a3c395da0950556a",
   "flags": {
     "cmdRegistries": [
       "https://bcr.bazel.build/"
@@ -18,7 +18,7 @@
   "moduleDepGraph": {
     "<root>": {
       "name": "dev_lurey_rules_dart",
-      "version": "0.0.0",
+      "version": "0.1.0-dev",
       "key": "<root>",
       "repoName": "dev_lurey_rules_dart",
       "executionPlatformsToRegister": [],

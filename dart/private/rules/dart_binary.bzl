@@ -6,6 +6,10 @@ load(
     "DartLibraryInfo",
     "DartPackageConfigInfo",
 )
+load(
+    "//dart/private/rules:dart_package_config_gen.bzl",
+    "dart_package_config_gen",
+)
 
 ATTRS = {
     "main": attr.label(
@@ -59,8 +63,7 @@ source "$(grep -sm1 "^$f " "$0.exe.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/
 # --- end runfiles.bash initialization v2 ---
 """
 
-# buildifier: disable=function-docstring
-def generate_dart_binary_script(ctx, dart_executable, dart_main):
+def _generate_dart_binary_script(ctx, dart_executable, dart_main):
     script = ctx.actions.declare_file("{}.sh".format(ctx.label.name))
     args = []
 
@@ -70,7 +73,7 @@ def generate_dart_binary_script(ctx, dart_executable, dart_main):
     # Optionally, add --packages argument to the Dart binary.
     if ctx.attr.packages:
         packages = ctx.attr.packages[DartPackageConfigInfo]
-        args.append("--packages={}".format(packages.config.short_path))
+        args.append("--packages={}".format(packages.file.short_path))
 
     dart_binary_name = dart_executable.files.to_list()[0].path
     dart_main_full_path = "%s/%s" % (ctx.workspace_name, dart_main.path)
@@ -89,8 +92,7 @@ def generate_dart_binary_script(ctx, dart_executable, dart_main):
 
     return script
 
-# buildifier: disable=function-docstring
-def dart_binary_impl(ctx):
+def _impl(ctx):
     # Find the dart executable.
     toolchain = ctx.toolchains["@dev_lurey_rules_dart//dart:toolchain_type"]
     dart_bin = toolchain.dart.dart_bin
@@ -99,7 +101,7 @@ def dart_binary_impl(ctx):
     if ctx.attr.main and DartBinaryInfo in ctx.attr.main and ctx.attr.main[DartBinaryInfo].binary:
         executable = ctx.attr.main[DartBinaryInfo].binary
 
-    script = generate_dart_binary_script(
+    script = _generate_dart_binary_script(
         ctx,
         dart_executable = dart_bin,
         dart_main = executable,
@@ -107,7 +109,7 @@ def dart_binary_impl(ctx):
 
     runfiles = [executable]
     if ctx.attr.packages:
-        runfiles.append(ctx.attr.packages[DartPackageConfigInfo].config)
+        runfiles.append(ctx.attr.packages[DartPackageConfigInfo].file)
 
     # Add srcs to runfiles.
     runfiles.extend(ctx.files.srcs)
@@ -131,14 +133,43 @@ def dart_binary_impl(ctx):
         ),
     ]
 
-dart_binary = rule(
-    implementation = dart_binary_impl,
+_dart_binary = rule(
+    implementation = _impl,
     attrs = dict(
         ATTRS,
     ),
     executable = True,
     toolchains = ["@dev_lurey_rules_dart//dart:toolchain_type"],
-    doc = """
-Runs a Dart binary.
-""",
+    doc = "Runs a Dart binary.",
 )
+
+def dart_binary(
+        name,
+        packages = None,
+        deps = None,
+        **kwargs):
+    """Create a dart_binary target.
+
+    Args:
+        name: The name of the target.
+        packages: The package_config to use for this target.
+          If not provided, one will be created.
+        deps: A list of dependencies for this target.
+        **kwargs: Additional arguments to pass to the dart_binary rule.
+
+    Returns:
+        A dart_binary target.
+"""
+    if not packages:
+        packages = "%s.package_config" % name
+        dart_package_config_gen(
+            name = packages,
+            out = "%s.package_config.json" % name,
+            deps = deps,
+        )
+    return _dart_binary(
+        name = name,
+        packages = packages,
+        deps = deps,
+        **kwargs
+    )

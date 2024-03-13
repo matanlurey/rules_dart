@@ -1,5 +1,22 @@
 """Providers for interopability between rules."""
 
+load(
+    "//dart/private/providers:DartPackageConfigInfo.bzl",
+    _DartPackageConfigInfo = "DartPackageConfigInfo",
+)
+load(
+    "//dart/private/providers:DartPackageResolutionInfo.bzl",
+    _DartPackageResolutionInfo = "DartPackageResolutionInfo",
+)
+load(
+    "//dart/private/providers:DartPackageRootInfo.bzl",
+    _DartPackageRootInfo = "DartPackageRootInfo",
+)
+
+DartPackageConfigInfo = _DartPackageConfigInfo
+DartPackageResolutionInfo = _DartPackageResolutionInfo
+DartPackageRootInfo = _DartPackageRootInfo
+
 DartBinaryInfo = provider(
     "Provider for Dart files",
     fields = {
@@ -12,26 +29,6 @@ DartLibraryInfo = provider(
     fields = {
         "transitive_deps": "Transitive Dart dependencies.",
         "transitive_srcs": "Transitive Dart sources.",
-    },
-)
-
-DartPackageRootInfo = provider(
-    """Provides what is referred to as a 'package' root in Dart.
-
-In other words, given a "[package_name]", tools will expect to be able to refer
-to Dart files by "package:[package_name]/path/to/file.dart" and have it resolve
-to the file at "[package_root]/path/to/file.dart".
-""",
-    fields = {
-        "package_name": "The name of the package.",
-        "package_root": "The root of the package.",
-    },
-)
-
-DartPackageConfigInfo = provider(
-    "Provider for Dart package configuration",
-    fields = {
-        "config": "package_config.json file.",
     },
 )
 

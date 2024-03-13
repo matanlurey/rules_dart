@@ -10,6 +10,11 @@ bzl_library(
     name = "providers",
     srcs = ["providers.bzl"],
     visibility = ["//dart:__subpackages__"],
+    deps = [
+        "//dart/private/providers:DartPackageConfigInfo",
+        "//dart/private/providers:DartPackageResolutionInfo",
+        "//dart/private/providers:DartPackageRootInfo",
+    ],
 )
 
 bzl_library(

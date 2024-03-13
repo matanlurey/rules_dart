@@ -2,7 +2,7 @@
   "configVersion": 2,
   "packages": [
     {
-      "name": "foo",
+      "name": "packages.foo",
       "rootUri": "../packages/foo",
       "packageUri": "lib/",
       "languageVersion": "3.0"
@@ -10,12 +10,6 @@
     {
       "name": "meta",
       "rootUri": "../bazel-simple/external/dev_lurey_rules_dart~override~pub~meta",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
-      "name": "simple",
-      "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.0"
     }
